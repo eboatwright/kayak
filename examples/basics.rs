@@ -38,6 +38,7 @@ impl State for GameState {
 	fn update(&mut self) {
 		// Will be called every frame (only on the current scene in Master)
 		println!("GameState Update!");
+		self.player_score += 1;
 	}
 
 	fn render(&self, _resources: &Box<dyn ResourceContainer>) {

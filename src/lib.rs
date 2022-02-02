@@ -1,4 +1,5 @@
 use macroquad::prelude::*;
+use std::any::Any;
 
 pub trait State {
 	fn initialize(&mut self);
@@ -32,8 +33,8 @@ impl Default for Master {
 	}
 }
 
-pub fn convert_resources<T: 'static + ResourceContainer>(resources: &Box<dyn ResourceContainer>) -> &T {
-	(resources as &dyn std::any::Any).downcast_ref::<T>().unwrap()
+pub fn convert_resources<T: 'static + Clone + ResourceContainer>(resources: Box<dyn ResourceContainer>) -> T {
+	((&resources as &dyn Any).downcast_ref::<T>().unwrap()).clone()
 }
 
 pub async fn start(master: &mut Master) {
