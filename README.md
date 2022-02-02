@@ -1,6 +1,3 @@
-# UNDER CONSTRUCTION!!!
- Come back in a few days!
-
 # R U Tired Of ECS?
  A non ECS "Game Engine" for Rust and Macroquad!<br><br>
  Are you tired of ECS? Well you're in luck!<br>
