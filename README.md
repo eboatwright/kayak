@@ -1,5 +1,6 @@
 # R U Tired Of ECS?
- A non ECS "Game Engine" for Rust and Macroquad!<br><br>
+ A non ECS "Game Engine" for Rust and Macroquad!<br>
+ Supports Windows, Mac, Linux and Web Assembly!<br><br>
  Are you tired of ECS? Well you're in luck!<br>
  RUTOE is a simple to use, lightweight "Game Engine" with lots of stuff built in!
 
@@ -23,6 +24,7 @@ sh run.sh
 ```
 chmod +x run.sh
 ```
+ Note: The build scripts use --release by default so that's why you might have slow build times.
 
 # This Project Uses My Modified Version of Macroquad
  Check out the original here!<br>
