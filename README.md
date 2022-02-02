@@ -26,6 +26,13 @@ chmod +x run.sh
 ```
  Note: The build scripts use --release by default so that's why you might have slow build times.
 
+# Distributing
+ If your game uses textures, sounds or fonts (besides defaults) copy the res folder in src and ship it with your executable.
+
+# WASM
+ Go into the web folder, and replace all CRATE_NAME in index.html and build_wasm.sh with your crate name, then run the shell file!<br>
+ You can use a program like basic-http-server in the web folder for testing.
+
 # This Project Uses My Modified Version of Macroquad
  Check out the original here!<br>
  https://github.com/not-fl3/macroquad
