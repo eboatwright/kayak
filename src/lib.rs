@@ -33,8 +33,8 @@ impl Default for Master {
 	}
 }
 
-pub fn convert_resources<T: 'static + Clone + ResourceContainer>(resources: Box<dyn ResourceContainer>) -> T {
-	((&resources as &dyn Any).downcast_ref::<T>().unwrap()).clone()
+pub fn convert_resources<T: 'static + ResourceContainer>(resources: &Box<dyn ResourceContainer>) -> &T {
+	(resources as &dyn Any).downcast_ref::<T>().unwrap()
 }
 
 pub async fn start(master: &mut Master) {
