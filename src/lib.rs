@@ -14,10 +14,14 @@ impl State for EmptyState {
 	fn render(&self, _resources: &Box<(dyn ResourceContainer)>) {}
 }
 
-pub trait ResourceContainer {}
+pub trait ResourceContainer {
+	fn as_any(&self) -> &dyn Any;
+}
 
 struct NoResources {}
-impl ResourceContainer for NoResources {}
+impl ResourceContainer for NoResources {
+	fn as_any(&self) -> &dyn Any { self as &dyn Any }
+}
 
 pub struct Master {
 	pub state: Box<dyn State>,
@@ -33,8 +37,8 @@ impl Default for Master {
 	}
 }
 
-pub fn convert_resources<T: 'static + ResourceContainer>(resources: &Box<dyn ResourceContainer>) -> &T {
-	(resources as &dyn Any).downcast_ref::<T>().unwrap()
+pub fn convert_resources<T: 'static + ResourceContainer>(resources: &dyn Any) -> &T {
+	resources.downcast_ref::<T>().unwrap()
 }
 
 pub async fn start(master: &mut Master) {
