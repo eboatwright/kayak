@@ -4,6 +4,8 @@ use macroquad::prelude::screen_height;
 use macroquad::prelude::Vec2;
 use macroquad::prelude::vec2;
 
+// This is basically just a Camera
+// I just can't call it Camera, because Macroquad already has that
 #[derive(Copy, Clone)]
 pub struct Viewport {
 	pub position: Vec2,
@@ -29,15 +31,18 @@ impl Viewport {
 		}
 	}
 
+	// This is just a get function, because the screen size should not be changed at runtime
 	pub fn screen_size(&self) -> Vec2 { self.size }
 
 	pub fn mouse_position(&self) -> Vec2 {
-		let mouse_pos = mouse_position();
-		let mut mouse_pos = vec2(mouse_pos.0, mouse_pos.1);
-	
-		mouse_pos.x = (mouse_pos.x - screen_width() * 0.5) / self.zoom + self.position.x;
-		mouse_pos.y = (mouse_pos.y - screen_height() * 0.5) / self.zoom + self.position.y;
+		// Get the full mouse position
+		let mut mouse_pos = mouse_position();
 
-		mouse_pos
+		// Scale to game view size                               // Convert to game world space by adding the viewport's position
+		mouse_pos.0 = (mouse_pos.0 - screen_width() * 0.5) / self.zoom + self.position.x;
+		mouse_pos.1 = (mouse_pos.1 - screen_height() * 0.5) / self.zoom + self.position.y;
+
+		// Convert the (f32, f32) into Vec2
+		Vec2::from(mouse_pos)
 	}
 }

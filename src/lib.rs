@@ -2,6 +2,7 @@
 // Licensed under the MIT license
 // See https://github.com/eboatwright/kayak for more information!
 
+// I just go ahead and import everything, so that you can just say: use kayak::*; instead of a prelude
 pub mod master;
 pub mod resources;
 pub mod state;
@@ -14,35 +15,46 @@ pub use crate::viewport::*;
 
 use macroquad::prelude::*;
 
+// Call this so kick off the game loop!
 pub async fn start(master: &mut Master, mut viewport: Viewport) {
-    master.state.initialize();
+    // Initialize the current state
+    master.state.initialize(&mut viewport);
 
+    // This is for screen scaling so that when the window size changes, the game view will scale appropriately
     let game_render_target = render_target(viewport.screen_size().x as u32, viewport.screen_size().y as u32);
     game_render_target.texture.set_filter(FilterMode::Nearest);
     let mut camera = Camera2D {
+        // I don't know why this is like this, but it's just Macroquad
         zoom: vec2(1.0 / viewport.screen_size().x * 2.0, 1.0 / viewport.screen_size().y * 2.0),
         render_target: Some(game_render_target),
         ..Default::default()
     };
 
     loop {
+        // Update current scene
         master.state.update(&mut viewport);
 
+        // This sets the render camera's position to the viewport position
         camera.target = viewport.position;
 
         set_camera(&camera);
 
+        // The main clear background
         clear_background(DARKGRAY);
 
+        // Render the current state
         master.state.render(&viewport, &master.resources);
 
+        // Go back to screen space
         set_default_camera();
 
+        // Calculate differences and scales between the scaled window size, and the game view size
         let game_diff = vec2(
             screen_width() / viewport.screen_size().x,
             screen_height() / viewport.screen_size().y,
         );
         let aspect_diff = game_diff.x.min(game_diff.y);
+        // I store this, so that I can use it to get the mouse position later
         viewport.zoom = aspect_diff;
 
         let scaled_game_size = vec2(
@@ -55,8 +67,10 @@ pub async fn start(master: &mut Master, mut viewport: Viewport) {
             (screen_height() - scaled_game_size.y) * 0.5,
         );
 
+        // This clears the screen space so that there will be black bars
         clear_background(BLACK);
 
+        // Render the game view onto screen space
         draw_texture_ex(
             game_render_target.texture,
             padding.x.round(),
