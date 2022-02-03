@@ -1,3 +1,6 @@
+# Notice
+ This is extremely early in development, and major changes are happening all the time!
+
 # R U Tired Of ECS?
  A non ECS "Game Engine" for Rust and Macroquad!<br>
  Supports Windows, Mac, Linux and Web Assembly!<br><br>
