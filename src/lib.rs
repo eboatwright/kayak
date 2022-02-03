@@ -18,19 +18,16 @@ pub use crate::viewport::*;
 use macroquad::prelude::*;
 
 // Call this so kick off the game loop!
-pub async fn start(master: &mut Master, viewport: Viewport) {
-    // Create context
-    master.context.viewport = viewport;
-
+pub async fn start(master: &mut Master) {
     // Initialize the current state
     master.state.initialize(&mut master.context);
 
     // This is for screen scaling so that when the window size changes, the game view will scale appropriately
-    let game_render_target = render_target(viewport.screen_size().x as u32, viewport.screen_size().y as u32);
+    let game_render_target = render_target(master.context.viewport.screen_size().x as u32, master.context.viewport.screen_size().y as u32);
     game_render_target.texture.set_filter(FilterMode::Nearest);
     let mut camera = Camera2D {
         // I don't know why this is like this, but it's just Macroquad
-        zoom: vec2(1.0 / viewport.screen_size().x * 2.0, 1.0 / viewport.screen_size().y * 2.0),
+        zoom: vec2(1.0 / master.context.viewport.screen_size().x * 2.0, 1.0 / master.context.viewport.screen_size().y * 2.0),
         render_target: Some(game_render_target),
         ..Default::default()
     };
@@ -40,7 +37,7 @@ pub async fn start(master: &mut Master, viewport: Viewport) {
         master.state.update(&mut master.context);
 
         // This sets the render camera's position to the viewport position
-        camera.target = viewport.position;
+        camera.target = master.context.viewport.position;
 
         set_camera(&camera);
 
@@ -55,16 +52,16 @@ pub async fn start(master: &mut Master, viewport: Viewport) {
 
         // Calculate differences and scales between the scaled window size, and the game view size
         let game_diff = vec2(
-            screen_width() / viewport.screen_size().x,
-            screen_height() / viewport.screen_size().y,
+            screen_width() / master.context.viewport.screen_size().x,
+            screen_height() / master.context.viewport.screen_size().y,
         );
         let aspect_diff = game_diff.x.min(game_diff.y);
         // I store this, so that I can use it to get the mouse position later
         master.context.viewport.zoom = aspect_diff;
 
         let scaled_game_size = vec2(
-            viewport.screen_size().x * aspect_diff,
-            viewport.screen_size().y * aspect_diff,
+            master.context.viewport.screen_size().x * aspect_diff,
+            master.context.viewport.screen_size().y * aspect_diff,
         );
 
         let padding = vec2(
