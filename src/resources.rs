@@ -4,7 +4,7 @@ pub trait ResourceContainer {
 	fn as_any(&self) -> &dyn Any;
 }
 
-pub struct NoResources {}
+pub(crate) struct NoResources {}
 impl ResourceContainer for NoResources {
 	fn as_any(&self) -> &dyn Any { self as &dyn Any }
 }

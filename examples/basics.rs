@@ -1,3 +1,4 @@
+use std::any::Any;
 use macroquad::prelude::*;
 use rutoe::*;
 
@@ -20,7 +21,9 @@ async fn main() {
 		// ..Default::default()
 	};
 
-	start(&mut master).await;
+	let viewport = Viewport::new(vec2(960.0, 600.0));
+	
+	start(&mut master, viewport).await;
 }
 
 // Put all your game variables here
@@ -35,13 +38,13 @@ impl State for GameState {
 		println!("GameState Initialize!");
 	}
 
-	fn update(&mut self) {
+	fn update(&mut self, _context: &mut Context) {
 		// Will be called every frame (only on the current scene in Master)
 		println!("GameState Update!");
 		self.player_score += 1;
 	}
 
-	fn render(&self, _resources: &Box<dyn ResourceContainer>) {
+	fn render(&self, _context: &Context, _resources: &Box<dyn ResourceContainer>) {
 		// Will be called every frame after update (only on the current scene in Master)
 		// This converts the Box trait into your Resources struct
 		// Replace this with your Resources struct's name
@@ -64,4 +67,6 @@ struct Resources {
 }
 
 // This is just a marker trait
-impl ResourceContainer for Resources {}
+impl ResourceContainer for Resources {
+	fn as_any(&self) -> &dyn Any { self as &dyn Any }
+}
