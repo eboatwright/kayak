@@ -29,7 +29,7 @@ impl Viewport {
 		}
 	}
 
-	pub fn get_size(&self) -> Vec2 { self.size }
+	pub fn screen_size(&self) -> Vec2 { self.size }
 
 	pub fn mouse_position(&self) -> Vec2 {
 		let mouse_pos = mouse_position();

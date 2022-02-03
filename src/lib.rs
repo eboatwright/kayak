@@ -17,10 +17,10 @@ use macroquad::prelude::*;
 pub async fn start(master: &mut Master, mut viewport: Viewport) {
     master.state.initialize();
 
-    let game_render_target = render_target(viewport.get_size().x as u32, viewport.get_size().y as u32);
+    let game_render_target = render_target(viewport.screen_size().x as u32, viewport.screen_size().y as u32);
     game_render_target.texture.set_filter(FilterMode::Nearest);
     let mut camera = Camera2D {
-        zoom: vec2(1.0 / viewport.get_size().x * 2.0, 1.0 / viewport.get_size().y * 2.0),
+        zoom: vec2(1.0 / viewport.screen_size().x * 2.0, 1.0 / viewport.screen_size().y * 2.0),
         render_target: Some(game_render_target),
         ..Default::default()
     };
@@ -39,15 +39,15 @@ pub async fn start(master: &mut Master, mut viewport: Viewport) {
         set_default_camera();
 
         let game_diff = vec2(
-            screen_width() / viewport.get_size().x,
-            screen_height() / viewport.get_size().y,
+            screen_width() / viewport.screen_size().x,
+            screen_height() / viewport.screen_size().y,
         );
         let aspect_diff = game_diff.x.min(game_diff.y);
         viewport.zoom = aspect_diff;
 
         let scaled_game_size = vec2(
-            viewport.get_size().x * aspect_diff,
-            viewport.get_size().y * aspect_diff,
+            viewport.screen_size().x * aspect_diff,
+            viewport.screen_size().y * aspect_diff,
         );
 
         let padding = vec2(
