@@ -1,12 +1,12 @@
+use crate::Context;
 use crate::EmptyState;
 use crate::State;
-use crate::ResourceContainer;
-use crate::NoResources;
 
-// This is the main container for the current state, and current resources (resources usually don't change btw)
+// This is the main container for the current state, and context. Context holds current resources (resources usually don't change btw), and the viewport
+// And the viewport is just empty until the update and render
 pub struct Master {
 	pub state: Box<dyn State>,
-	pub resources: Box<dyn ResourceContainer>,
+	pub context: Context,
 }
 
 // Use this for quickly prototyping.
@@ -15,7 +15,7 @@ impl Default for Master {
 	fn default() -> Self {
 		Self {
 			state: Box::new(EmptyState {}),
-			resources: Box::new(NoResources {}),
+			context: Context::default(),
 		}
 	}
 }

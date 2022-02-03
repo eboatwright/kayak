@@ -13,10 +13,13 @@ async fn main() {
 			// Just put empty values here because initialize will get called on it
 			player_score: 0,
 		}),
-		resources: Box::new(Resources {
-			// Load all your textures, sounds and fonts here
-			// example_texture: load_texture("res/img/this_texture_doesnt_exist.png").await.unwrap(),
-		}),
+		context: Context {
+			resources: Box::new(Resources {
+				// Load all your textures, sounds and fonts here
+				// example_texture: load_texture("res/img/this_texture_doesnt_exist.png").await.unwrap(),
+			}),
+			viewport: Viewport::default(),
+		},
 		// Or if your game doesn't have any textures, sounds or fonts just do
 		// ..Default::default()
 	};
@@ -33,18 +36,18 @@ struct GameState {
 
 // Implement all state functions
 impl State for GameState {
-	fn initialize(&mut self) {
+	fn initialize(&mut self, _context: &mut Context) {
 		// Will be called when the state is loaded
 		println!("GameState Initialize!");
 	}
 
-	fn update(&mut self, _viewport: &mut Viewport) {
+	fn update(&mut self, _context: &mut Context) {
 		// Will be called every frame (only on the current scene in Master)
 		println!("GameState Update!");
 		self.player_score += 1;
 	}
 
-	fn render(&self, _viewport: &Viewport, _resources: &Box<dyn ResourceContainer>) {
+	fn render(&self, _context: &Context) {
 		// Will be called every frame after update (only on the current scene in Master)
 		// This converts the Box trait into your Resources struct
 		// Replace this with your Resources struct's name

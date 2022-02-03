@@ -3,11 +3,13 @@
 // See https://github.com/eboatwright/kayak for more information!
 
 // I just go ahead and import everything, so that you can just say: use kayak::*; instead of a prelude
+pub mod context;
 pub mod master;
 pub mod resources;
 pub mod state;
 pub mod viewport;
 
+pub use crate::context::*;
 pub use crate::master::*;
 pub use crate::resources::*;
 pub use crate::state::*;
@@ -16,9 +18,12 @@ pub use crate::viewport::*;
 use macroquad::prelude::*;
 
 // Call this so kick off the game loop!
-pub async fn start(master: &mut Master, mut viewport: Viewport) {
+pub async fn start(master: &mut Master, viewport: Viewport) {
+    // Create context
+    master.context.viewport = viewport;
+
     // Initialize the current state
-    master.state.initialize(&mut viewport);
+    master.state.initialize(&mut master.context);
 
     // This is for screen scaling so that when the window size changes, the game view will scale appropriately
     let game_render_target = render_target(viewport.screen_size().x as u32, viewport.screen_size().y as u32);
@@ -32,7 +37,7 @@ pub async fn start(master: &mut Master, mut viewport: Viewport) {
 
     loop {
         // Update current scene
-        master.state.update(&mut viewport);
+        master.state.update(&mut master.context);
 
         // This sets the render camera's position to the viewport position
         camera.target = viewport.position;
@@ -43,7 +48,7 @@ pub async fn start(master: &mut Master, mut viewport: Viewport) {
         clear_background(DARKGRAY);
 
         // Render the current state
-        master.state.render(&viewport, &master.resources);
+        master.state.render(&master.context);
 
         // Go back to screen space
         set_default_camera();
@@ -55,7 +60,7 @@ pub async fn start(master: &mut Master, mut viewport: Viewport) {
         );
         let aspect_diff = game_diff.x.min(game_diff.y);
         // I store this, so that I can use it to get the mouse position later
-        viewport.zoom = aspect_diff;
+        master.context.viewport.zoom = aspect_diff;
 
         let scaled_game_size = vec2(
             viewport.screen_size().x * aspect_diff,
