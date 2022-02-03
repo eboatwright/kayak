@@ -38,13 +38,13 @@ impl State for GameState {
 		println!("GameState Initialize!");
 	}
 
-	fn update(&mut self, _context: &mut Context) {
+	fn update(&mut self, _viewport: &mut Viewport) {
 		// Will be called every frame (only on the current scene in Master)
 		println!("GameState Update!");
 		self.player_score += 1;
 	}
 
-	fn render(&self, _context: &Context, _resources: &Box<dyn ResourceContainer>) {
+	fn render(&self, _viewport: &Viewport, _resources: &Box<dyn ResourceContainer>) {
 		// Will be called every frame after update (only on the current scene in Master)
 		// This converts the Box trait into your Resources struct
 		// Replace this with your Resources struct's name
