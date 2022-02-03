@@ -1,20 +1,18 @@
 # Notice
  This is extremely early in development, and major changes are happening all the time!
 
-# R U Tired Of ECS?
- A non ECS "Game Engine" for Rust and Macroquad!<br>
+# Kayak
+ Kayak is a simple to use, non ECS "Game Engine" for Rust and Macroquad!<br>
  Supports Windows, Mac, Linux and Web Assembly!<br><br>
- Are you tired of ECS? Well you're in luck!<br>
- RUTOE is a simple to use, lightweight "Game Engine" with lots of stuff built in!
 
 # Creating a New Project
- To create a new project with RUTOE, you can do this command:
+ To create a new project with Kayak, you can do this command:
 ```
-git clone https://github.com/eboatwright/rutoe_template
+git clone https://github.com/eboatwright/kayak_template
 ```
  Or, go to the template repository, and click: "Use this Template"!
 
-# Running a RUTOE Project
+# Running a Kayak Project
  You can run a project by going into your project's root directory and running the command:
 ```
 ./run.sh
