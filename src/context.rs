@@ -16,3 +16,10 @@ impl Default for Context {
 		}
 	}
 }
+
+impl Context {
+	// Convert the current resources into given type, and return it
+	pub fn get_resources<T: 'static + ResourceContainer>(&self) -> &T {
+		self.resources.as_any().downcast_ref::<T>().unwrap()
+	}
+}
