@@ -1,6 +1,6 @@
-// RUTOE is an easy to use "Game Engine" for Rust!
+// Kayak is an easy to use "Game Engine" for Rust!
 // Licensed under the MIT license
-// See https://github.com/eboatwright/rutoe for more information!
+// See https://github.com/eboatwright/kayak for more information!
 
 pub mod master;
 pub mod resources;

@@ -1,12 +1,12 @@
 use std::any::Any;
 use macroquad::prelude::*;
-use rutoe::*;
+use kayak::*;
 
 // See Macroquad's docs.rs page for more on rendering and window configuration
 // NOTE: Some things will be different, as this project uses my modified version of macroquad.
 // https://github.com/eboatwright/macroquad/
 // https://docs.rs/macroquad/0.3.13/macroquad/
-#[macroquad::main("Hello RUTOE!")]
+#[macroquad::main("Hello Kayak!")]
 async fn main() {
 	let mut master = Master {
 		state: Box::new(GameState {
