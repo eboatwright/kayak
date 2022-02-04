@@ -3,6 +3,7 @@ use crate::Resources;
 use macroquad::prelude::*;
 use macroquad::rand::gen_range;
 
+#[derive(Debug)]
 pub struct Pipe {
 	pub transform: Rect,
 	pub scored: bool,

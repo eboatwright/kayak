@@ -4,7 +4,6 @@ mod pipes;
 mod resources;
 
 use macroquad::audio::load_sound;
-use crate::bird::Bird;
 use kayak::Viewport;
 use crate::game_state::GameState;
 use kayak::start;
@@ -26,13 +25,7 @@ async fn main() {
     let bird_tex = load_texture("res/tex/bird.png").await.unwrap();
     bird_tex.set_filter(FilterMode::Nearest);
 
-    let state = Box::new(GameState {
-        score: 0,
-        game_over: false,
-        speed: 2.0,
-        pipes: Vec::new(),
-        bird: Bird::default(),
-    });
+    let state = Box::new(GameState::default());
 
     let viewport = Viewport::new(vec2(320.0, 200.0));
 
