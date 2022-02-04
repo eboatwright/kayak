@@ -17,9 +17,7 @@ pub struct GameState {
 impl State for GameState {
     fn update(&mut self, context: &mut Context) -> UpdateStatus {
         pipes_update(self);
-        bird_update(self, context);
-
-        UpdateStatus::Ok
+        bird_update(self, context)
     }
 
     fn render(&self, context: &Context) {

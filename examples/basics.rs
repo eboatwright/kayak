@@ -8,25 +8,16 @@ use kayak::*;
 // https://docs.rs/macroquad/0.3.13/macroquad/
 #[macroquad::main("Hello Kayak!")]
 async fn main() {
-	let mut master = Master {
-		state: Box::new(GameState {
-			// Just put empty values here because initialize will get called on it
-			player_score: 0,
-		}),
-		context: Context {
-			resources: Box::new(Resources {
-				// Load all your textures, sounds and fonts here
-				// example_texture: load_texture("res/img/this_texture_doesnt_exist.png").await.unwrap(),
-			}),
-			viewport: Viewport::default(),
-		},
-		// Or if your game doesn't have any textures, sounds or fonts just do
-		// ..Default::default()
-	};
-
+	// Put the rendering pixel size in here |
+	// So if you want 3 screen pixels to be 1 game pixel, divide your starting window size by 3 and put it here
 	let viewport = Viewport::new(vec2(960.0, 600.0));
+
+	let resources = Box::new(Resources {
+		// Load all your textures, sounds and fonts here
+		// example_texture: load_texture("res/img/this_texture_doesnt_exist.png").await.unwrap(),
+	});
 	
-	start(&mut master, viewport).await;
+	start(Box::new(GameState::default()), viewport, resources).await;
 }
 
 // Put all your game variables here
@@ -34,25 +25,31 @@ struct GameState {
 	player_score: u16,
 }
 
+impl Default for GameState {
+	// This is basically the initialize function
+	fn default() -> Self {
+		Self {
+			player_score: 0,
+		}
+	}
+}
+
 // Implement all state functions
 impl State for GameState {
-	fn initialize(&mut self, _context: &mut Context) {
-		// Will be called when the state is loaded
-		println!("GameState Initialize!");
-	}
-
-	fn update(&mut self, _context: &mut Context) {
+	fn update(&mut self, _context: &mut Context) -> UpdateStatus {
 		// Will be called every frame (only on the current scene in Master)
 		println!("GameState Update!");
 		self.player_score += 1;
+
+		UpdateStatus::Ok
 	}
 
 	fn render(&self, _context: &Context) {
 		// Will be called every frame after update (only on the current scene in Master)
-		// This converts the Box trait into your Resources struct
+		// This get's the current resources type
 		// Replace this with your Resources struct's name
 		//                     |
-		// let resources: &Resources = convert_resources(resources);
+		// let resources: &Resources = context.get_resources();
 		println!("GameState Render!");
 		draw_text(
 			&format!("Player Score: {}", self.player_score),
