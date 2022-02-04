@@ -1,0 +1,11 @@
+/home/evanboatwright/Desktop/Rust/flappy_bird/target/debug/deps/sapp_linux-7b8e1ad9c42aa5c6.rmeta: /home/evanboatwright/.cargo/registry/src/github.com-1ecc6299db9ec823/sapp-linux-0.1.13/src/lib.rs /home/evanboatwright/.cargo/registry/src/github.com-1ecc6299db9ec823/sapp-linux-0.1.13/src/gl.rs /home/evanboatwright/.cargo/registry/src/github.com-1ecc6299db9ec823/sapp-linux-0.1.13/src/rand.rs /home/evanboatwright/.cargo/registry/src/github.com-1ecc6299db9ec823/sapp-linux-0.1.13/src/x.rs /home/evanboatwright/.cargo/registry/src/github.com-1ecc6299db9ec823/sapp-linux-0.1.13/src/x_cursor.rs /home/evanboatwright/.cargo/registry/src/github.com-1ecc6299db9ec823/sapp-linux-0.1.13/src/xi_input.rs /home/evanboatwright/.cargo/registry/src/github.com-1ecc6299db9ec823/sapp-linux-0.1.13/src/clipboard.rs
+
+/home/evanboatwright/Desktop/Rust/flappy_bird/target/debug/deps/sapp_linux-7b8e1ad9c42aa5c6.d: /home/evanboatwright/.cargo/registry/src/github.com-1ecc6299db9ec823/sapp-linux-0.1.13/src/lib.rs /home/evanboatwright/.cargo/registry/src/github.com-1ecc6299db9ec823/sapp-linux-0.1.13/src/gl.rs /home/evanboatwright/.cargo/registry/src/github.com-1ecc6299db9ec823/sapp-linux-0.1.13/src/rand.rs /home/evanboatwright/.cargo/registry/src/github.com-1ecc6299db9ec823/sapp-linux-0.1.13/src/x.rs /home/evanboatwright/.cargo/registry/src/github.com-1ecc6299db9ec823/sapp-linux-0.1.13/src/x_cursor.rs /home/evanboatwright/.cargo/registry/src/github.com-1ecc6299db9ec823/sapp-linux-0.1.13/src/xi_input.rs /home/evanboatwright/.cargo/registry/src/github.com-1ecc6299db9ec823/sapp-linux-0.1.13/src/clipboard.rs
+
+/home/evanboatwright/.cargo/registry/src/github.com-1ecc6299db9ec823/sapp-linux-0.1.13/src/lib.rs:
+/home/evanboatwright/.cargo/registry/src/github.com-1ecc6299db9ec823/sapp-linux-0.1.13/src/gl.rs:
+/home/evanboatwright/.cargo/registry/src/github.com-1ecc6299db9ec823/sapp-linux-0.1.13/src/rand.rs:
+/home/evanboatwright/.cargo/registry/src/github.com-1ecc6299db9ec823/sapp-linux-0.1.13/src/x.rs:
+/home/evanboatwright/.cargo/registry/src/github.com-1ecc6299db9ec823/sapp-linux-0.1.13/src/x_cursor.rs:
+/home/evanboatwright/.cargo/registry/src/github.com-1ecc6299db9ec823/sapp-linux-0.1.13/src/xi_input.rs:
+/home/evanboatwright/.cargo/registry/src/github.com-1ecc6299db9ec823/sapp-linux-0.1.13/src/clipboard.rs:
