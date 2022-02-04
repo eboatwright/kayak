@@ -9,6 +9,8 @@ pub mod state;
 pub mod update_status;
 pub mod viewport;
 
+pub mod extras;
+
 pub use crate::context::*;
 pub use crate::resources::*;
 pub use crate::state::*;
