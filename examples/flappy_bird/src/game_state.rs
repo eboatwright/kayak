@@ -1,8 +1,8 @@
+use kayak::UpdateStatus;
 use crate::pipes::*;
 use crate::bird::*;
 use macroquad::prelude::*;
 use crate::Resources;
-use kayak::Viewport;
 use kayak::State;
 use kayak::Context;
 
@@ -15,60 +15,63 @@ pub struct GameState {
 }
 
 impl State for GameState {
-    fn initialize(&mut self, context: &mut Context) {
-        self.score = 0;
-
-        self.bird.transform = Rect {
-            x: -70.0,
-            y: -31.0,
-            w: 20.0,
-            h: 19.0,
-        };
-        self.bird.rotation = 0.0;
-        self.bird.done_game_over_animation = false;
-        self.bird.y_velocity = 0.0;
-        self.bird.game_over_timer = 10.0;
-
-        self.game_over = false;
-        self.bird.started = false;
-
-        self.pipes = vec![
-            create_pipe(&context.viewport, 1),
-            create_pipe(&context.viewport, 2),
-        ];
-    }
-
-    fn update(&mut self, context: &mut Context) {
-        pipes_update(self, &context.viewport);
+    fn update(&mut self, context: &mut Context) -> UpdateStatus {
+        pipes_update(self);
         bird_update(self, context);
+
+        UpdateStatus::Ok
     }
 
     fn render(&self, context: &Context) {
         let resources: &Resources = context.get_resources();
-        background_render(&context.viewport, resources);
+
+        background_render(resources);
         pipes_render(self, resources);
         bird_render(self, resources);
-        score_render(self, &context.viewport);
-        instructions_render(&context.viewport);
+        score_render(self);
+        instructions_render();
         game_over_render(self);
     }
 }
 
-pub fn background_render(viewport: &Viewport, resources: &Resources) {
+impl Default for GameState {
+    fn default() -> Self {
+        Self {
+            score: 0,
+            game_over: false,
+            speed: 2.0,
+            pipes: vec![
+                create_pipe(1),
+                create_pipe(2),
+            ],
+            bird: Bird {
+                transform: Rect {
+                    x: -70.0,
+                    y: -31.0,
+                    w: 20.0,
+                    h: 19.0,
+                },
+                ..Default::default()
+            },
+        }
+    }
+}
+
+pub fn background_render(resources: &Resources) {
     draw_texture(
         resources.background,
-        -viewport.screen_size().x * 0.5,
-        -viewport.screen_size().y * 0.5,
+        -160.0,
+        -100.0,
         WHITE,
     );
 }
 
-pub fn score_render(game_state: &GameState, viewport: &Viewport) {
+pub fn score_render(game_state: &GameState) {
     let text = &format!("{}", game_state.score);
     draw_text(
         text,
         0.0 - (text.len() as f32 * 12.0) - 1.0,
-        (f32::sin(get_time() as f32 * 2.0) * 5.0).round() - viewport.screen_size().y * 0.5 + 33.0,
+        (f32::sin(get_time() as f32 * 2.0) * 5.0).round() - 67.0,
         48.0,
         Color {
             r: 0.0,
@@ -80,24 +83,24 @@ pub fn score_render(game_state: &GameState, viewport: &Viewport) {
     draw_text(
         text,
         0.0 - (text.len() as f32 * 12.0),
-        (f32::sin(get_time() as f32 * 2.0) * 5.0).round() - viewport.screen_size().y * 0.5 + 32.0,
+        (f32::sin(get_time() as f32 * 2.0) * 5.0).round() - 68.0,
         48.0,
         WHITE,
     );
 }
 
-pub fn instructions_render(viewport: &Viewport) {
+pub fn instructions_render() {
     draw_text(
         "Click / Space - Flap",
-        -viewport.screen_size().x * 0.5 + 2.0,
-        viewport.screen_size().y * 0.5 - 18.0,
+        -158.0,
+        82.0,
         16.0,
         WHITE,
     );
     draw_text(
         "R - Toggle Rotation",
-        -viewport.screen_size().x * 0.5 + 2.0,
-        viewport.screen_size().y * 0.5 - 2.0,
+        -158.0,
+        98.0,
         16.0,
         WHITE,
     );
