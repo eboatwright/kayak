@@ -30,8 +30,8 @@ impl BoundingBox {
 		let b_position = b.0.position + b.1.offset;
 
 		   a_position.x < b_position.x + b.1.size.x
-		|| a_position.x + a.1.size.x > b_position.x
-		|| a_position.y < b_position.y + b.1.size.y
-		|| a_position.y + a.1.size.y > b_position.y
+		&& a_position.x + a.1.size.x > b_position.x
+		&& a_position.y < b_position.y + b.1.size.y
+		&& a_position.y + a.1.size.y > b_position.y
 	}
 }
