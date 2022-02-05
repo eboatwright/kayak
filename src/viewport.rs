@@ -45,4 +45,10 @@ impl Viewport {
 		// Convert the (f32, f32) into Vec2
 		Vec2::from(mouse_pos)
 	}
+
+	// Returns the X or Y coordinate of the edges
+	pub fn top(&self) -> f32 { self.position.y - self.screen_size().y * 0.5 }
+	pub fn bottom(&self) -> f32 { self.position.y + self.screen_size().y * 0.5 }
+	pub fn left(&self) -> f32 { self.position.x - self.screen_size().x * 0.5 }
+	pub fn right(&self) -> f32 { self.position.x + self.screen_size().x * 0.5 }
 }
