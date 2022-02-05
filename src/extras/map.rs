@@ -3,6 +3,7 @@ use std::collections::HashMap;
 use macroquad::prelude::*;
 
 // This holds data that can be looped through and used as a tilemap
+#[derive(Clone, PartialEq)]
 pub struct Map {
 	pub tile_size: u16,
 	pub tiles: Vec<Vec<u16>>,
